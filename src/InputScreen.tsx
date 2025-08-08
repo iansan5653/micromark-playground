@@ -16,11 +16,11 @@ function InputScreen({
     <div className={styles.container}>
       <div className={styles.header}>
         <Heading as="h2" className={styles.title}>
-          📝 Markdown Playground
+          📝 Micromark Playground
         </Heading>
         <Text className={styles.description}>
-          Enter your Markdown content below and click submit to see it
-          displayed.
+          Enter your Markdown content below and click submit to visualize the
+          token stream. GFM is enabled.
         </Text>
       </div>
 
