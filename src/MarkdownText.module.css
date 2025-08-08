@@ -7,7 +7,8 @@
 }
 
 .markdownContainer::highlight(token-highlight) {
-  background-color: var(--bgColor-accent-emphasis);
+  background-color: var(--bgColor-accent-muted);
+  color: var(--fgColor-accent);
 }
 
 .emptyState {

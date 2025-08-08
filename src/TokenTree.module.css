@@ -12,7 +12,8 @@
 }
 
 :is(.tokenEnter, .tokenExit):hover {
-  background-color: var(--bgColor-muted);
+  background-color: var(--bgColor-accent-muted);
+  color: var(--fgColor-accent);
 }
 
 .tokenEnter {
