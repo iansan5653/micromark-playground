@@ -1,5 +1,7 @@
+import {Button} from "@primer/react";
+
 function App() {
-  return <>Hello, world.</>;
+  return <Button>Hello, world.</Button>;
 }
 
 export default App;
