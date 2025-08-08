@@ -1,0 +1,34 @@
+.tokenTree {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.tokenTree li {
+  margin: 0;
+  padding: 0.125rem 0;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+:is(.tokenEnter, .tokenExit):hover {
+  background-color: var(--bgColor-muted);
+}
+
+.tokenEnter {
+  color: var(--fgColor-default);
+}
+
+.tokenExit {
+  color: var(--fgColor-muted);
+}
+
+.tokenName {
+  font-weight: bold;
+  font-family: var(--fontStack-monospace);
+}
+
+.tokenPosition,
+.tokenDirection {
+  color: var(--fgColor-muted);
+}
