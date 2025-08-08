@@ -1,11 +1,11 @@
-import {useMemo} from "react";
+import {useMemo, type MouseEventHandler} from "react";
 import {parse, postprocess, preprocess} from "micromark";
 import {gfm} from "micromark-extension-gfm";
 import styles from "./TokenTree.module.css";
 
 const micromarkParse = parse({extensions: [gfm()]});
 
-interface TokenProps {
+export interface MarkdownToken {
   name: string;
   start: number;
   end: number;
@@ -13,11 +13,26 @@ interface TokenProps {
   direction: "enter" | "exit";
 }
 
-function Token({name, start, end, depth, direction}: TokenProps) {
+interface TokenProps extends MarkdownToken {
+  onMouseOver: MouseEventHandler<HTMLLIElement>;
+  onMouseOut: MouseEventHandler<HTMLLIElement>;
+}
+
+function Token({
+  name,
+  start,
+  end,
+  depth,
+  direction,
+  onMouseOver,
+  onMouseOut,
+}: TokenProps) {
   return (
     <li
       className={direction === "enter" ? styles.tokenEnter : styles.tokenExit}
       style={{marginLeft: `${depth}em`}}
+      onMouseOver={onMouseOver}
+      onMouseOut={onMouseOut}
     >
       <span className={styles.tokenDirection}>
         {direction === "enter" ? "→" : "←"}
@@ -32,9 +47,15 @@ function Token({name, start, end, depth, direction}: TokenProps) {
 
 interface TokenTreeProps {
   markdownText: string;
+  onSelectToken: (token: MarkdownToken) => void;
+  onDeselectToken: () => void;
 }
 
-function TokenTree({markdownText}: TokenTreeProps) {
+function TokenTree({
+  markdownText,
+  onDeselectToken,
+  onSelectToken,
+}: TokenTreeProps) {
   const tokens = useMemo(() => {
     if (!markdownText) return null;
 
@@ -43,7 +64,7 @@ function TokenTree({markdownText}: TokenTreeProps) {
     );
 
     let depth = 0;
-    return events.map<TokenProps>(([direction, {type, start, end}]) => {
+    return events.map<MarkdownToken>(([direction, {type, start, end}]) => {
       return {
         name: type,
         start: start.offset,
@@ -61,7 +82,12 @@ function TokenTree({markdownText}: TokenTreeProps) {
   return (
     <ul className={styles.tokenTree}>
       {tokens.map((token, index) => (
-        <Token key={index} {...token} />
+        <Token
+          key={index}
+          {...token}
+          onMouseOver={() => onSelectToken(token)}
+          onMouseOut={() => onDeselectToken()}
+        />
       ))}
     </ul>
   );

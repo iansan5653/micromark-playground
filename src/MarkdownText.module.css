@@ -1,0 +1,16 @@
+.markdownContainer {
+  font-family: var(--fontStack-monospace);
+  font-size: 14px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.5;
+}
+
+.markdownContainer::highlight(token-highlight) {
+  background-color: var(--bgColor-accent-emphasis);
+}
+
+.emptyState {
+  color: var(--fgColor-muted);
+  font-style: italic;
+}
