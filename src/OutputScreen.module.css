@@ -1,3 +1,10 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+}
+
 .outputHeader {
   display: flex;
   align-items: center;
@@ -9,22 +16,11 @@
   width: 120px;
 }
 
-.outputBox {
-  padding: 0.75rem;
-  border: 1px solid var(--borderColor-default);
-  border-radius: 6px;
-  background-color: var(--bgColor-muted);
-  min-height: 400px;
-  font-family: var(--fontStack-monospace);
-  font-size: 14px;
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
 .splitLayout {
   display: flex;
   gap: 1rem;
-  min-height: 500px;
+  flex: 1;
+  overflow: hidden;
 }
 
 .leftColumn {
@@ -36,7 +32,7 @@
   font-size: 14px;
   white-space: pre-wrap;
   word-break: break-word;
-  overflow-y: auto;
+  overflow: auto;
 }
 
 .rightColumn {
@@ -47,7 +43,7 @@
   font-size: 12px;
   white-space: pre-wrap;
   word-break: break-word;
-  overflow-y: auto;
+  overflow: auto;
 }
 
 .columnHeader {
