@@ -1,0 +1,19 @@
+.markdownInput {
+  font-family: var(--fontStack-monospace);
+  font-size: 14px;
+  line-height: 1.5;
+  border: none;
+  padding: 0;
+  margin: 0;
+  field-sizing: content;
+  width: 100%;
+  resize: none;
+  background: none;
+  color: var(--fgColor-default);
+  outline: none;
+}
+
+.markdownInput::highlight(token-highlight) {
+  background-color: var(--bgColor-accent-muted);
+  color: var(--fgColor-accent);
+}

@@ -33,6 +33,10 @@
   white-space: pre-wrap;
   word-break: break-word;
   overflow: auto;
+
+  &:focus-within {
+    border: 1px solid var(--borderColor-accent-emphasis);
+  }
 }
 
 .rightColumn {

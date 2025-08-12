@@ -1,13 +1,18 @@
 import {useEffect, useRef} from "react";
 import type {MarkdownToken} from "./TokenTree";
-import styles from "./MarkdownText.module.css";
+import styles from "./MarkdownInput.module.css";
 
-interface MarkdownTextProps {
+interface MarkdownInputProps {
   markdown: string;
+  onChange: (markdown: string) => void;
   selectedToken: MarkdownToken | null;
 }
 
-function MarkdownText({markdown, selectedToken}: MarkdownTextProps) {
+function MarkdownInput({
+  markdown,
+  selectedToken,
+  onChange,
+}: MarkdownInputProps) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -28,15 +33,15 @@ function MarkdownText({markdown, selectedToken}: MarkdownTextProps) {
     };
   }, [selectedToken, markdown]);
 
-  if (!markdown) {
-    return <span className={styles.emptyState}>No content submitted yet.</span>;
-  }
-
   return (
-    <div ref={containerRef} className={styles.markdownContainer}>
+    <textarea
+      className={styles.markdownInput}
+      onChange={(e) => onChange(e.target.value)}
+      placeholder="Enter some Markdown"
+    >
       {markdown}
-    </div>
+    </textarea>
   );
 }
 
-export default MarkdownText;
+export default MarkdownInput;

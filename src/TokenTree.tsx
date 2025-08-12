@@ -46,21 +46,21 @@ function Token({
 }
 
 interface TokenTreeProps {
-  markdownText: string;
+  markdown: string;
   onSelectToken: (token: MarkdownToken) => void;
   onDeselectToken: () => void;
 }
 
 function TokenTree({
-  markdownText,
+  markdown,
   onDeselectToken,
   onSelectToken,
 }: TokenTreeProps) {
   const tokens = useMemo(() => {
-    if (!markdownText) return null;
+    if (!markdown) return null;
 
     const events = postprocess(
-      micromarkParse.document().write(preprocess()(markdownText, "utf-8", true))
+      micromarkParse.document().write(preprocess()(markdown, "utf-8", true))
     );
 
     let depth = 0;
@@ -73,7 +73,7 @@ function TokenTree({
         direction,
       };
     });
-  }, [markdownText]);
+  }, [markdown]);
 
   if (!tokens?.length) {
     return <span className={styles.emptyState}>No tokens to display.</span>;
