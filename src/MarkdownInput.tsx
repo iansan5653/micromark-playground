@@ -1,6 +1,8 @@
-import {useEffect, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 import type {MarkdownToken} from "./TokenTree";
 import styles from "./MarkdownInput.module.css";
+
+import {InputRange} from "dom-input-range";
 
 interface MarkdownInputProps {
   markdown: string;
@@ -14,33 +16,50 @@ function MarkdownInput({
   onChange,
 }: MarkdownInputProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+
+  const [highlightRects, setHighlightRects] = useState<DOMRect[] | null>(null);
 
   useEffect(() => {
-    if (selectedToken && containerRef.current) {
-      const {start, end} = selectedToken;
-      const textNode = containerRef.current.firstChild as Text;
-
-      const range = new Range();
-      range.setStart(textNode, start);
-      range.setEnd(textNode, end);
-
-      const highlight = new Highlight(range);
-      CSS.highlights.set("token-highlight", highlight);
+    if (selectedToken && inputRef.current) {
+      const range = new InputRange(
+        inputRef.current,
+        selectedToken.start,
+        selectedToken.end
+      );
+      setHighlightRects(Array.from(range.getClientRects()));
+    } else {
+      setHighlightRects(null);
     }
+  }, [selectedToken]);
 
-    return () => {
-      CSS.highlights.delete("token-highlight");
-    };
-  }, [selectedToken, markdown]);
+  const containerRect = containerRef.current?.getBoundingClientRect() ?? {
+    top: 0,
+    left: 0,
+  };
 
   return (
-    <textarea
-      className={styles.markdownInput}
-      onChange={(e) => onChange(e.target.value)}
-      placeholder="Enter some Markdown"
-    >
-      {markdown}
-    </textarea>
+    <div ref={containerRef} style={{position: "relative"}}>
+      <textarea
+        className={styles.markdownInput}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder="Enter some Markdown"
+        value={markdown}
+        ref={inputRef}
+      />
+      {highlightRects?.map((rect, i) => (
+        <div
+          key={i}
+          className={styles.highlight}
+          style={{
+            top: rect.top - containerRect.top,
+            left: rect.left - containerRect.left,
+            width: rect.width,
+            height: rect.height,
+          }}
+        />
+      ))}
+    </div>
   );
 }
 

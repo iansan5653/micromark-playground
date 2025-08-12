@@ -11,9 +11,12 @@
   background: none;
   color: var(--fgColor-default);
   outline: none;
+  min-height: 100%;
 }
 
-.markdownInput::highlight(token-highlight) {
-  background-color: var(--bgColor-accent-muted);
-  color: var(--fgColor-accent);
+.highlight {
+  background-color: var(--bgColor-accent-emphasis);
+  opacity: 0.4;
+  position: absolute;
+  z-index: 10;
 }
