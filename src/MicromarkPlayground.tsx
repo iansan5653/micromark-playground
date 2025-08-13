@@ -2,13 +2,14 @@ import {Heading} from "@primer/react";
 import styles from "./MicromarkPlayground.module.css";
 import TokenTree, {type MarkdownToken} from "./TokenTree";
 import MarkdownText from "./MarkdownInput";
-import {useState} from "react";
+import {useCallback, useDeferredValue, useState} from "react";
 
 function MicromarkPlayground() {
   const [markdown, setMarkdown] = useState("");
   const [selectedToken, setSelectedToken] = useState<MarkdownToken | null>(
     null
   );
+  const deferredMarkdown = useDeferredValue(markdown);
 
   return (
     <div className={styles.container}>
@@ -30,9 +31,9 @@ function MicromarkPlayground() {
         <div className={styles.rightColumn}>
           <div className={styles.columnHeader}>Micromark Tokens</div>
           <TokenTree
-            markdown={markdown}
+            markdown={deferredMarkdown}
             onSelectToken={setSelectedToken}
-            onDeselectToken={() => setSelectedToken(null)}
+            onDeselectToken={useCallback(() => setSelectedToken(null), [])}
           />
         </div>
       </div>

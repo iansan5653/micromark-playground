@@ -1,4 +1,4 @@
-import {useMemo, type MouseEventHandler} from "react";
+import {memo, useMemo, type MouseEventHandler} from "react";
 import {parse, postprocess, preprocess} from "micromark";
 import {gfm} from "micromark-extension-gfm";
 import styles from "./TokenTree.module.css";
@@ -51,7 +51,7 @@ interface TokenTreeProps {
   onDeselectToken: () => void;
 }
 
-function TokenTree({
+const TokenTree = memo(function TokenTree({
   markdown,
   onDeselectToken,
   onSelectToken,
@@ -91,6 +91,6 @@ function TokenTree({
       ))}
     </ul>
   );
-}
+});
 
 export default TokenTree;
