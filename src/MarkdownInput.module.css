@@ -1,3 +1,8 @@
+.container {
+  position: relative;
+  flex: 1;
+}
+
 .markdownInput {
   font-family: var(--fontStack-monospace);
   font-size: 14px;
@@ -11,7 +16,7 @@
   background: none;
   color: var(--fgColor-default);
   outline: none;
-  min-height: 100%;
+  height: 100%;
 }
 
 .highlight {

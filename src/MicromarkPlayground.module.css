@@ -33,6 +33,8 @@
   white-space: pre-wrap;
   word-break: break-word;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
 
   &:focus-within {
     border: 1px solid var(--borderColor-accent-emphasis);

@@ -39,13 +39,14 @@ function MarkdownInput({
   };
 
   return (
-    <div ref={containerRef} style={{position: "relative"}}>
+    <div ref={containerRef} className={styles.container}>
       <textarea
         className={styles.markdownInput}
         onChange={(e) => onChange(e.target.value)}
         placeholder="Enter some Markdown"
         value={markdown}
         ref={inputRef}
+        autoFocus
       />
       {highlightRects?.map((rect, i) => (
         <div
